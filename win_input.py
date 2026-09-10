@@ -90,16 +90,16 @@ def send_digit_or_char(char: str):
     if not char:
         return
 
-    if char.isdigit():
+    if char == "00":
+        send_digit_or_char("0")
+        send_digit_or_char("0")
+    elif len(char) == 1 and char.isdigit():
         vk = ord(char)
         scan = user32.MapVirtualKeyW(vk, 0)
         user32.keybd_event(vk, scan, 0, 0)
         time.sleep(0.015)
         user32.keybd_event(vk, scan, KEYEVENTF_KEYUP, 0)
         time.sleep(0.010)
-    elif char == "00":
-        for d in "00":
-            send_digit_or_char(d)
     elif char == ".":
         vk = VK_OEM_PERIOD
         scan = user32.MapVirtualKeyW(vk, 0)
